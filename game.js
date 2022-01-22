@@ -1,6 +1,5 @@
 mouse_clicked = false;
 var mouse_position;
-score = 0;
 
 window.onload = function() {
 	var div_boundaries = document.getElementsByClassName('boundary');
@@ -9,12 +8,10 @@ window.onload = function() {
 
 	start.addEventListener(
 		'click',
-		function(e) {
+		function() {
 			mouse_clicked = true;
 			for (var i = 0; i < div_boundaries.length - 1; i++) {
-				if ((score = -10)) {
-					div_boundaries[i].classList.remove('youlose');
-				}
+				div_boundaries[i].classList.remove('youlose');
 			}
 		},
 		true
@@ -30,15 +27,20 @@ window.onload = function() {
 					y: event.clientY
 				};
 
-				console.log(mouse_position);
+				for (var i = 0; i < div_boundaries.length - 1; i++) {
+					end.addEventListener('mouseover', function() {
+						console.log('You Won!!');
+					});
+				}
+
 				for (var i = 0; i < div_boundaries.length - 1; i++) {
 					div_boundaries[i].addEventListener(
 						'mouseover',
-						function(e) {
+						function() {
 							for (var i = 0; i < div_boundaries.length - 1; i++) {
 								div_boundaries[i].classList.add('youlose');
 							}
-							score = -10;
+							console.log('You Lose!!');
 						},
 						true
 					);
