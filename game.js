@@ -1,42 +1,26 @@
 mouse_clicked = false;
-var offset = [ 0, 0 ];
 var mouse_position;
-
-function checkCollision(elm1, elm2) {
-	var elm1Rect = elm1.getBoundingClientRect();
-	var elm2Rect = elm2.getBoundingClientRect();
-
-	return (
-		elm1Rect.right >= elm2Rect.left &&
-		elm1Rect.left <= elm2Rect.right &&
-		(elm1Rect.bottom >= elm2Rect.top && elm1Rect.top <= elm2Rect.bottom)
-	);
-}
+score = 0;
 
 window.onload = function() {
 	var div_boundaries = document.getElementsByClassName('boundary');
-
 	var start = document.getElementById('start');
 	var end = document.getElementById('end');
 
 	start.addEventListener(
-		'mousedown',
+		'click',
 		function(e) {
 			mouse_clicked = true;
-			offset = [ start.offsetLeft - e.clientX, start.offsetTop - e.clientY ];
+			for (var i = 0; i < div_boundaries.length - 1; i++) {
+				if ((score = -10)) {
+					div_boundaries[i].classList.remove('youlose');
+				}
+			}
 		},
 		true
 	);
 
-	start.addEventListener(
-		'mouseup',
-		function() {
-			mouse_clicked = false;
-		},
-		true
-	);
-
-	start.addEventListener(
+	document.addEventListener(
 		'mousemove',
 		function(event) {
 			event.preventDefault();
@@ -45,33 +29,20 @@ window.onload = function() {
 					x: event.clientX,
 					y: event.clientY
 				};
-				start.style.left = mouse_position.x + offset[0] + 'px';
-				start.style.top = mouse_position.y + offset[1] + 'px';
 
+				console.log(mouse_position);
 				for (var i = 0; i < div_boundaries.length - 1; i++) {
-					div_boundaries[i].classList.remove('youlose');
+					div_boundaries[i].addEventListener(
+						'mouseover',
+						function(e) {
+							for (var i = 0; i < div_boundaries.length - 1; i++) {
+								div_boundaries[i].classList.add('youlose');
+							}
+							score = -10;
+						},
+						true
+					);
 				}
-
-				collision =
-					checkCollision(start, div_boundaries[0]) ||
-					checkCollision(start, div_boundaries[1]) ||
-					checkCollision(start, div_boundaries[2]) ||
-					checkCollision(start, div_boundaries[3]) ||
-					checkCollision(start, div_boundaries[4]);
-
-				if (collision == true || start.style.left < '0') {
-					console.log('You LOST!!!!!!!!!');
-					mouse_clicked = false;
-					for (var i = 0; i < div_boundaries.length - 1; i++) {
-						div_boundaries[i].classList.add('youlose');
-					}
-				} else if (checkCollision(start, end) == true) {
-					console.log('You Won!!!!');
-				}
-
-				console.log(collision);
-
-				console.log(checkCollision(start, end));
 			}
 		},
 		true
