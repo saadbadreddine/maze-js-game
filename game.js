@@ -1,4 +1,4 @@
-(window.onload = function() {
+(window.onload = function playMaze() {
 	var game_state = 2;
 	var score = 0;
 	var boundaries = document.getElementsByClassName('boundary');
@@ -10,7 +10,7 @@
 
 	function startGame() {
 		if (game_state == 0) {
-			for (var i = 0; i < boundaries.length - 1; i++) {
+			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].classList.remove('youlose');
 			}
 			game_state = 1;
@@ -20,7 +20,7 @@
 				start.removeEventListener('mouseover', startGame);
 				game_state = 1;
 			}
-			for (var i = 0; i < boundaries.length - 1; i++) {
+			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].style.backgroundColor = null;
 			}
 			console.log('Game Started');
@@ -28,7 +28,7 @@
 			console.log(game_state);
 			end.addEventListener('mouseover', winGame);
 
-			for (var i = 0; i < boundaries.length - 1; i++) {
+			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].addEventListener('mouseover', loseGame);
 			}
 			game.addEventListener('mouseleave', detectCheating);
@@ -36,13 +36,13 @@
 	}
 	function detectCheating() {
 		console.log('Cheating Detected ...');
-		for (var i = 0; i < boundaries.length - 1; i++) {
+		for (var i = 0; i < boundaries.length; i++) {
 			boundaries[i].classList.add('youlose');
 		}
 		game_state = 0;
-		status.innerText = 'You attempted to cheat! click on "S" to play again';
+		status.innerText = 'Out of Bounds! click on "S" to play again';
 		end.removeEventListener('mouseover', winGame);
-		for (var i = 0; i < boundaries.length - 1; i++) {
+		for (var i = 0; i < boundaries.length; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
 		game.removeEventListener('mouseleave', detectCheating);
@@ -50,14 +50,14 @@
 
 	function endGame() {
 		score = 0;
-		boundaries[5].innerText = score;
+		boundaries[5].innerText = null;
 		status.innerText = 'Begin by moving your mouse over the "S"';
 		if (game_state == 0) {
-			for (var i = 0; i < boundaries.length - 1; i++) {
+			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].classList.remove('youlose');
 			}
 		} else if (game_state == 1) {
-			for (var i = 0; i < boundaries.length - 1; i++) {
+			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].style.backgroundColor = null;
 			}
 		}
@@ -66,7 +66,7 @@
 	}
 
 	function winGame() {
-		for (var i = 0; i < boundaries.length - 1; i++) {
+		for (var i = 0; i < boundaries.length; i++) {
 			boundaries[i].style.backgroundColor = '#88ff88';
 		}
 		console.log('You Won!!');
@@ -74,16 +74,16 @@
 		score += 5;
 		boundaries[5].innerText = score;
 		console.log(game_state);
-		status.innerText = 'You won! click on "S" to play again';
+		status.innerText = 'You Won! click on "S" to play again';
 		end.removeEventListener('mouseover', winGame);
-		for (var i = 0; i < boundaries.length - 1; i++) {
+		for (var i = 0; i < boundaries.length; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
 		game.removeEventListener('mouseleave', detectCheating);
 	}
 
 	function loseGame() {
-		for (var i = 0; i < boundaries.length - 1; i++) {
+		for (var i = 0; i < boundaries.length; i++) {
 			boundaries[i].classList.add('youlose');
 		}
 		console.log('You Lost!!');
@@ -91,8 +91,8 @@
 		score -= 10;
 		boundaries[5].innerText = score;
 		console.log(game_state);
-		status.innerText = 'You lost! click on "S" to play again';
-		for (i = 0; i < boundaries.length - 1; i++) {
+		status.innerText = 'You Lost! click on "S" to play again';
+		for (i = 0; i < boundaries.length; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
 		end.removeEventListener('mouseover', winGame);
