@@ -14,14 +14,18 @@
 			}
 			game_state = 1;
 			console.log('Game Started');
+			status.innerText = 'Game Running ...';
 			end.addEventListener('mouseover', wonGame);
 
 			for (var i = 0; i < boundaries.length - 1; i++) {
 				boundaries[i].addEventListener('mouseover', lostGame);
 			}
 		} else if (game_state == 1 || game_state == 2) {
-			game_state = 1;
+			if (game_state == 2) {
+				game_state = 1;
+			}
 			console.log('Game Started');
+			status.innerText = 'Game Running ...';
 			console.log(game_state);
 			end.addEventListener('mouseover', wonGame);
 
