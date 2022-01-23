@@ -55,6 +55,7 @@
 			}
 		}
 		game_state = 2;
+		start.addEventListener('mouseover', startGame);
 	}
 
 	function winGame() {
