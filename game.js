@@ -37,7 +37,7 @@
 			boundaries[i].classList.add('youlose');
 		}
 		game_state = 0;
-		status.innerText = "You're Cheating";
+		status.innerText = 'You attempted to cheat! click on "S" to play again';
 		end.removeEventListener('mouseover', winGame);
 		for (var i = 0; i < boundaries.length - 1; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
@@ -64,7 +64,7 @@
 		score += 5;
 		boundaries[5].innerText = score;
 		console.log(game_state);
-		status.innerText = 'You Won';
+		status.innerText = 'You won! click on "S" to play again';
 		end.removeEventListener('mouseover', winGame);
 		for (var i = 0; i < boundaries.length - 1; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
@@ -81,7 +81,7 @@
 		score -= 10;
 		boundaries[5].innerText = score;
 		console.log(game_state);
-		status.innerText = 'You Lost';
+		status.innerText = 'You lost! click on "S" to play again';
 		for (i = 0; i < boundaries.length - 1; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
