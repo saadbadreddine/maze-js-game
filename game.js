@@ -20,6 +20,9 @@
 				start.removeEventListener('mouseover', startGame);
 				game_state = 1;
 			}
+			for (var i = 0; i < boundaries.length - 1; i++) {
+				boundaries[i].style.backgroundColor = null;
+			}
 			console.log('Game Started');
 			status.innerText = 'Game Running ...';
 			console.log(game_state);
@@ -53,12 +56,19 @@
 			for (var i = 0; i < boundaries.length - 1; i++) {
 				boundaries[i].classList.remove('youlose');
 			}
+		} else if (game_state == 1) {
+			for (var i = 0; i < boundaries.length - 1; i++) {
+				boundaries[i].style.backgroundColor = null;
+			}
 		}
 		game_state = 2;
 		start.addEventListener('mouseover', startGame);
 	}
 
 	function winGame() {
+		for (var i = 0; i < boundaries.length - 1; i++) {
+			boundaries[i].style.backgroundColor = '#88ff88';
+		}
 		console.log('You Won!!');
 		game_state = 1;
 		score += 5;
