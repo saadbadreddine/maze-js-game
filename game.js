@@ -6,6 +6,7 @@
 	var end = document.getElementById('end');
 	var status = document.getElementById('status');
 	boundaries[5].style.textAlign = 'center';
+	var game = document.getElementById('game');
 
 	function startGame() {
 		if (game_state == 0) {
@@ -13,26 +14,34 @@
 				boundaries[i].classList.remove('youlose');
 			}
 			game_state = 1;
-			console.log('Game Started');
-			status.innerText = 'Game Running ...';
-			end.addEventListener('mouseover', wonGame);
-
-			for (var i = 0; i < boundaries.length - 1; i++) {
-				boundaries[i].addEventListener('mouseover', lostGame);
-			}
-		} else if (game_state == 1 || game_state == 2) {
+		}
+		if (game_state == 1 || game_state == 2) {
 			if (game_state == 2) {
 				game_state = 1;
 			}
 			console.log('Game Started');
 			status.innerText = 'Game Running ...';
 			console.log(game_state);
-			end.addEventListener('mouseover', wonGame);
+			end.addEventListener('mouseover', winGame);
 
 			for (var i = 0; i < boundaries.length - 1; i++) {
-				boundaries[i].addEventListener('mouseover', lostGame);
+				boundaries[i].addEventListener('mouseover', loseGame);
 			}
+			game.addEventListener('mouseleave', detectCheating);
 		}
+	}
+	function detectCheating() {
+		console.log('Cheating Detected ...');
+		for (var i = 0; i < boundaries.length - 1; i++) {
+			boundaries[i].classList.add('youlose');
+		}
+		game_state = 0;
+		status.innerText = "You're Cheating";
+		end.removeEventListener('mouseover', winGame);
+		for (var i = 0; i < boundaries.length - 1; i++) {
+			boundaries[i].removeEventListener('mouseover', loseGame);
+		}
+		game.removeEventListener('mouseleave', detectCheating);
 	}
 
 	function endGame() {
@@ -47,20 +56,21 @@
 		game_state = 2;
 	}
 
-	function wonGame() {
+	function winGame() {
 		console.log('You Won!!');
 		game_state = 1;
 		score += 5;
 		boundaries[5].innerText = score;
 		console.log(game_state);
-		status.innerText = 'You won';
-		end.removeEventListener('mouseover', wonGame);
+		status.innerText = 'You Won';
+		end.removeEventListener('mouseover', winGame);
 		for (var i = 0; i < boundaries.length - 1; i++) {
-			boundaries[i].removeEventListener('mouseover', lostGame);
+			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
+		game.removeEventListener('mouseleave', detectCheating);
 	}
 
-	function lostGame() {
+	function loseGame() {
 		for (var i = 0; i < boundaries.length - 1; i++) {
 			boundaries[i].classList.add('youlose');
 		}
@@ -69,11 +79,12 @@
 		score -= 10;
 		boundaries[5].innerText = score;
 		console.log(game_state);
-		status.innerText = 'You lost';
+		status.innerText = 'You Lost';
 		for (i = 0; i < boundaries.length - 1; i++) {
-			boundaries[i].removeEventListener('mouseover', lostGame);
+			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
-		end.removeEventListener('mouseover', wonGame);
+		end.removeEventListener('mouseover', winGame);
+		game.removeEventListener('mouseleave', detectCheating);
 	}
 
 	start.addEventListener('click', startGame);
