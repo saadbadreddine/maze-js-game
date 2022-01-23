@@ -34,6 +34,12 @@
 	function endGame() {
 		score = 0;
 		boundaries[5].innerText = score;
+		status.innerText = 'Begin by moving your mouse over the "S"';
+		if (game_state == 0) {
+			for (var i = 0; i < boundaries.length - 1; i++) {
+				boundaries[i].classList.remove('youlose');
+			}
+		}
 		game_state = 2;
 	}
 
