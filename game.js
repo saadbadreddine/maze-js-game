@@ -17,6 +17,7 @@
 		}
 		if (game_state == 1 || game_state == 2) {
 			if (game_state == 2) {
+				start.removeEventListener('mouseover', startGame);
 				game_state = 1;
 			}
 			console.log('Game Started');
@@ -87,6 +88,9 @@
 		game.removeEventListener('mouseleave', detectCheating);
 	}
 
+	console.log(game_state);
+
+	start.addEventListener('mouseover', startGame);
 	start.addEventListener('click', startGame);
 	end.addEventListener('click', endGame);
 }),
