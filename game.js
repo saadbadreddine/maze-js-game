@@ -60,6 +60,7 @@
 			}
 		}
 		game_state = 2;
+		start.removeEventListener('click', startGame);
 		start.addEventListener('mouseover', startGame);
 	}
 
