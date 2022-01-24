@@ -14,12 +14,6 @@
 			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].classList.remove('youlose');
 			}
-			game_state = 1;
-		}
-
-		if (game_state == 2) {
-			start.removeEventListener('mouseover', startGame);
-			game_state = 1;
 		}
 
 		if (game_state == 1) {
@@ -29,14 +23,23 @@
 			console.log('Game Started');
 			status.innerText = 'Game Running ...';
 			console.log(game_state);
-			end.addEventListener('mouseover', winGame);
-
-			for (var i = 0; i < boundaries.length; i++) {
-				boundaries[i].addEventListener('mouseover', loseGame);
-			}
-			game.addEventListener('mouseleave', detectCheating);
 		}
+
+		if (game_state == 2) {
+			start.removeEventListener('mouseover', startGame);
+			console.log('Game Started');
+			status.innerText = 'Game Running ...';
+			console.log(game_state);
+		}
+
+		end.addEventListener('mouseover', winGame);
+
+		for (var i = 0; i < boundaries.length; i++) {
+			boundaries[i].addEventListener('mouseover', loseGame);
+		}
+		game.addEventListener('mouseleave', detectCheating);
 	}
+
 	function detectCheating() {
 		console.log('Cheating Detected ...');
 		for (var i = 0; i < boundaries.length; i++) {
@@ -44,6 +47,7 @@
 		}
 		game_state = 0;
 		status.innerText = 'Out of Bounds! click on "S" to play again';
+
 		end.removeEventListener('mouseover', winGame);
 		for (var i = 0; i < boundaries.length; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
@@ -55,6 +59,7 @@
 		score = 0;
 		boundaries[5].innerText = null;
 		status.innerText = 'Begin by moving your mouse over the "S"';
+
 		if (game_state == 0) {
 			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].classList.remove('youlose');
@@ -64,6 +69,7 @@
 				boundaries[i].style.backgroundColor = null;
 			}
 		}
+
 		game_state = 2;
 		start.addEventListener('mouseover', startGame);
 	}
@@ -78,6 +84,7 @@
 		boundaries[5].innerText = score;
 		console.log(game_state);
 		status.innerText = 'You Won! click on "S" to play again';
+
 		end.removeEventListener('mouseover', winGame);
 		for (var i = 0; i < boundaries.length; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
@@ -95,6 +102,7 @@
 		boundaries[5].innerText = score;
 		console.log(game_state);
 		status.innerText = 'You Lost! click on "S" to play again';
+
 		for (i = 0; i < boundaries.length; i++) {
 			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
