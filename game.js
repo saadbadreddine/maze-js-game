@@ -1,12 +1,13 @@
 (window.onload = function playMaze() {
-	var game_state = 2;
-	var score = 0;
 	var boundaries = document.getElementsByClassName('boundary');
 	var start = document.getElementById('start');
 	var end = document.getElementById('end');
 	var status = document.getElementById('status');
-	boundaries[5].style.textAlign = 'center';
 	var game = document.getElementById('game');
+	var game_state = 2;
+	var score = 0;
+
+	boundaries[5].style.textAlign = 'center';
 
 	function startGame() {
 		if (game_state == 0) {
@@ -15,11 +16,13 @@
 			}
 			game_state = 1;
 		}
-		if (game_state == 1 || game_state == 2) {
-			if (game_state == 2) {
-				start.removeEventListener('mouseover', startGame);
-				game_state = 1;
-			}
+
+		if (game_state == 2) {
+			start.removeEventListener('mouseover', startGame);
+			game_state = 1;
+		}
+
+		if (game_state == 1) {
 			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].style.backgroundColor = null;
 			}
@@ -98,8 +101,6 @@
 		end.removeEventListener('mouseover', winGame);
 		game.removeEventListener('mouseleave', detectCheating);
 	}
-
-	console.log(game_state);
 
 	start.addEventListener('mouseover', startGame);
 	start.addEventListener('click', startGame);
