@@ -15,7 +15,7 @@
 					 state 0 = game lost
 					 state 1 = game won
 	when the game first initiates (state 2) the user has to move his mouse over the "S" to start the game as instructed
-	When the game starts 3 event listeners are created that define the game, and the event that started the game on mouseover is stopped
+	When the game starts event listeners, and the event that started the game on mouseover is stopped
 	those events are: if the mouse moves over the boundaries the users loses
 				  if the mouse moves outside of game block the user is warned and game is stopped
 				  if the mouse reaches the E the user wins only if he doesn't touch the boundaries or gets out of bound. 
