@@ -9,6 +9,8 @@
 
 	boundaries[5].style.textAlign = 'center';
 
+	start.addEventListener('mouseover', startGame);
+
 	function startGame() {
 		if (game_state == 0) {
 			for (var i = 0; i < boundaries.length; i++) {
@@ -27,6 +29,9 @@
 
 		if (game_state == 2) {
 			start.removeEventListener('mouseover', startGame);
+			start.addEventListener('click', startGame);
+			end.addEventListener('click', endGame);
+
 			console.log('Game Started');
 			status.innerText = 'Game Running ...';
 			console.log(game_state);
@@ -38,21 +43,6 @@
 			boundaries[i].addEventListener('mouseover', loseGame);
 		}
 		game.addEventListener('mouseleave', detectCheating);
-	}
-
-	function detectCheating() {
-		console.log('Cheating Detected ...');
-		for (var i = 0; i < boundaries.length; i++) {
-			boundaries[i].classList.add('youlose');
-		}
-		game_state = 0;
-		status.innerText = 'Out of Bounds! click on "S" to play again';
-
-		end.removeEventListener('mouseover', winGame);
-		for (var i = 0; i < boundaries.length; i++) {
-			boundaries[i].removeEventListener('mouseover', loseGame);
-		}
-		game.removeEventListener('mouseleave', detectCheating);
 	}
 
 	function endGame() {
@@ -69,9 +59,23 @@
 				boundaries[i].style.backgroundColor = null;
 			}
 		}
-
 		game_state = 2;
 		start.addEventListener('mouseover', startGame);
+	}
+
+	function detectCheating() {
+		console.log('Cheating Detected ...');
+		for (var i = 0; i < boundaries.length; i++) {
+			boundaries[i].classList.add('youlose');
+		}
+		game_state = 0;
+		status.innerText = 'Out of Bounds! click on "S" to play again';
+
+		end.removeEventListener('mouseover', winGame);
+		for (var i = 0; i < boundaries.length; i++) {
+			boundaries[i].removeEventListener('mouseover', loseGame);
+		}
+		game.removeEventListener('mouseleave', detectCheating);
 	}
 
 	function winGame() {
@@ -109,9 +113,5 @@
 		end.removeEventListener('mouseover', winGame);
 		game.removeEventListener('mouseleave', detectCheating);
 	}
-
-	start.addEventListener('mouseover', startGame);
-	start.addEventListener('click', startGame);
-	end.addEventListener('click', endGame);
 }),
 	true;
