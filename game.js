@@ -16,26 +16,23 @@
 			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].classList.remove('youlose');
 			}
+			start.removeEventListener('click', startGame);
 		}
 
 		if (game_state == 1) {
 			for (var i = 0; i < boundaries.length; i++) {
 				boundaries[i].style.backgroundColor = null;
 			}
-			console.log('Game Started');
-			status.innerText = 'Game Running ...';
-			console.log(game_state);
+			start.removeEventListener('click', startGame);
 		}
 
 		if (game_state == 2) {
 			start.removeEventListener('mouseover', startGame);
-			start.addEventListener('click', startGame);
-			end.addEventListener('click', endGame);
-
-			console.log('Game Started');
-			status.innerText = 'Game Running ...';
-			console.log(game_state);
 		}
+
+		console.log('Game Started');
+		status.innerText = 'Game Running ...';
+		console.log(game_state);
 
 		end.addEventListener('mouseover', winGame);
 
@@ -49,6 +46,7 @@
 		score = 0;
 		boundaries[5].innerText = null;
 		status.innerText = 'Begin by moving your mouse over the "S"';
+		console.log('Game Reset');
 
 		if (game_state == 0) {
 			for (var i = 0; i < boundaries.length; i++) {
@@ -61,6 +59,7 @@
 		}
 		game_state = 2;
 		start.removeEventListener('click', startGame);
+		end.removeEventListener('click', endGame);
 		start.addEventListener('mouseover', startGame);
 	}
 
@@ -77,6 +76,9 @@
 			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
 		game.removeEventListener('mouseleave', detectCheating);
+
+		start.addEventListener('click', startGame);
+		end.addEventListener('click', endGame);
 	}
 
 	function winGame() {
@@ -95,6 +97,9 @@
 			boundaries[i].removeEventListener('mouseover', loseGame);
 		}
 		game.removeEventListener('mouseleave', detectCheating);
+
+		start.addEventListener('click', startGame);
+		end.addEventListener('click', endGame);
 	}
 
 	function loseGame() {
@@ -113,6 +118,9 @@
 		}
 		end.removeEventListener('mouseover', winGame);
 		game.removeEventListener('mouseleave', detectCheating);
+
+		start.addEventListener('click', startGame);
+		end.addEventListener('click', endGame);
 	}
 }),
 	true;
